@@ -1,39 +1,38 @@
-“Terms of Service; Didn't Read” Firefox extension
-=======
-This Firefox addon displays instantly while you browse the ratings of websites' **Terms of Service and Privacy Policy** with a focus on users' rights. The rating will display in the address bar as: class A to class E (good to bad). When you click on it, it displays the summary built from the www.didnotread.org community.
+# Firefox add-on for [Terms of Service; Didn't Read][tosdr]
+
+“I have read and agree to the Terms” is the biggest lie on the web.
+We aim to fix that. “Terms of Service; Didn't Read” is a user
+rights initiative to rate and label website terms & privacy
+policies, from very good (class A) to very bad (class E).
+
+This extension informs you instantly of your rights online by
+showing an unintrusive icon in the toolbar. You can click on this
+icon to get summaries from the [Terms of Service; Didn't
+Read][tosdr] initiative.
+
+Get the extension
+[here](https://addons.mozilla.org/en-US/firefox/addon/terms-of-service-didnt-read/) **[0.6 dev.]**
+
+[tosdr]: https://tosdr.org
 
 -----------
 
-Screenshot
-=======
-OS X
-
-![screenshot](https://dl.dropbox.com/u/18317770/tos.png)
-
-
-Windows
-
-![screenshot](https://dl.dropbox.com/u/18317770/tos-win.png)
-
-
-GNU/Linux
-
-![screenshot](https://dl.dropbox.com/u/18317770/tos-linux.png)
+Installation instructions
+-------------------------
 
 
 -----------
 
-Usage Instructions
-======
+Building instructions
+---------------------
 
-- Install the addon https://addons.mozilla.org/en-US/firefox/addon/didnotread/
-- Addon builder example => https://builder.addons.mozilla.org/package/148559/latest/
-
+ 
 -----------
+
 
 License
 ======
 
-This app is free software, licensed under: GNU Affero General Public License (AGPL-3.0). http://www.gnu.org/licenses/agpl-3.0.en.html
+AGPL-3.0+ (GNU Affero General Public License, version 3 or later)
 
-You can get the source code at http://firefox.didnotread.org
+See <https://tosdr.org/legal.html> for more details on the legal aspects of the project.
