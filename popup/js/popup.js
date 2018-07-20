@@ -1,3 +1,12 @@
+function escapeHTML(unsafe) {
+	  return (''+unsafe)
+	      .replace(/&(?!amp;)/g, "&amp;")
+	      .replace(/<(?!lt;)/g, "&lt;")
+	      .replace(/>(?!gt;)/g, "&gt;")
+	      .replace(/"(?!quot;)/g, "&quot;")
+	      .replace(/'(?!#039;)/g, "&#039;");
+	};
+	
 jQuery(function () {
 	function tosdrPoint(serviceName ,dataPoint){
 	  var badge, icon, sign;
@@ -30,32 +39,17 @@ jQuery(function () {
 	    $('#popup-point-' + serviceName + '-' + dataPoint.id)
 	      .append($("<div>", { class: dataPoint.tosdr.point })
 	      .append($("<h5>")
-	        .append($("<span>", { class: 'badge ' + badge , title: dataPoint.tosdr.point})
+	        .append($("<span>", { class: 'badge ' + badge , title: escapeHTML(dataPoint.tosdr.point)})
 	          .append($("<span>", { class: 'glyphicon glyphicon-' + icon}))
 	        )
 	        .append($("<span>").text(" " + dataPoint.title + " "))
-	        .append($("<a>", { href: dataPoint.discussion , target: '_blank', class : 'label context' , text: 'Discussion'}))
+	        .append($("<a>", { href: escapeHTML(dataPoint.discussion) , target: '_blank', class : 'label context' , text: 'Discussion'}))
 	      ));
 
 	    $('#popup-point-' + serviceName + '-' + dataPoint.id).append($("<p>"));
 	    if(taggedText.length > 1){
-	      for(i =0; i< taggedText.length; i++){
-	        var hrefRegex = /href=("|')(.*?)("|')/g;
-	        var tagsRegex = /<(em|strong)>/g;
-	        var hrefResults = hrefRegex.exec(taggedText[i]);
-	        var tagsResults = tagsRegex.exec(taggedText[i]);
-
-	        if(hrefResults){
-	          var url = (hrefResults[2].match(/^index\.html/)) ? "https://tosdr.org/" + hrefResults[2] : hrefResults[2];
-	          $('#popup-point-' + serviceName + '-' + dataPoint.id + ' p').append($("<a>", {href : url, text: taggedText[i+1], class : "pointshref" , target : "_blank"}));
-	          i+= 2;
-	        }else if(tagsResults){
-	          var tag = tagsResults[1];
-	          $('#popup-point-' + serviceName + '-' + dataPoint.id + ' p').append($("<" + tag + ">", {text : taggedText[i+1] }));
-	          i+= 2;
-	        }else{
-	          $('#popup-point-' + serviceName + '-' + dataPoint.id + ' p').append(taggedText[i]);
-	        }
+	      for (let t of taggedText) {
+	        $('#popup-point-' + serviceName + '-' + dataPoint.id + ' p').append(t);
 	      }
 	    }else{
 	      $('#popup-point-' + serviceName + '-' + dataPoint.id + ' p').text(pointText);
@@ -65,7 +59,7 @@ jQuery(function () {
 	};
 	
 	
-	var NOT_RATED_TEXT = "We haven't sufficiently reviewed the terms yet. Please contribute to our group: <a target=\"_blank\" href=\"https:\/\/groups.google.com/d/forum/tosdr\">tosdr@googlegroups.com</a>.";
+	var NOT_RATED_TEXT = "We haven't sufficiently reviewed the terms yet. Please contribute to our group: tosdr@googlegroups.com.";
 	var RATING_TEXT = {
 		0: NOT_RATED_TEXT,
 		"false": NOT_RATED_TEXT,
@@ -88,21 +82,24 @@ jQuery(function () {
 				.append($("<h4>", { text : 'Not rated, yet.'}))
 				.append($("<p>",{ text : 'Write an email to tosdr@googlegroups.com with a link to the terms, a small quote from the terms about the point you‘re making and let us know if you think it‘s a good or a bad point. It‘s better to do one email thread by topic, rather than one email per service. For more details, read on!' , class : 'lbldesc'}))));
 			}else{
-				$("#service_url").attr('href', 'http://tosdr.org/#' + serviceName);
+				$("#service_url").attr('href', 'http://tosdr.org/#' + escapeHTML(serviceName));
 	  
 				//Update class
 				$("#service_class").addClass(service.class);
 				if(service.class){
 					$("#service_class").text("Class " + service.class);
+					$("#ratingText").text(RATING_TEXT[service.class]);
 				}else{
 					$("#service_class").text("No Class Yet");
+					$("#service_class").remove();
+					$("#ratingText").text(RATING_TEXT[service.class]);
+					
 				}
-				$("#ratingText").text(RATING_TEXT[service.class]);
 				
 				
 				//Points
 				var sortedPoints = [];
-				for (var point in service.pointsData) {
+				for (let point in service.pointsData) {
 					sortedPoints.push(service.pointsData[point]);
 				}
 				sortedPoints.sort(function(x,y){return y.tosdr.score - x.tosdr.score});
@@ -121,9 +118,9 @@ jQuery(function () {
 					.append($("<h4>", { text : 'Read the Terms'}))
 					.append($("<ul>", {class: 'tosback2'}));
 
-					for (var i in service.links) {
+					for (let i in service.links) {
 						$('.tosback2').append($("<li>")
-						.append($("<a>", { href:service.links[i].url , target: '_blank' , text :(service.links[i].name ? service.links[i].name : i)})));
+						.append($("<a>", { href:escapeHTML(service.links[i].url) , target: '_blank' , text :(service.links[i].name ? service.links[i].name : i)})));
 					}
 				}
 				
