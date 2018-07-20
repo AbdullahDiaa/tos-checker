@@ -25,11 +25,5 @@
 		"48": "icons/icon.png",
 		"96": "icons/icon@2x.png"
 	},
-	"default_locale":"en",
-	"applications": {
-		"gecko": {
-			"id": "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack",
-			"strict_min_version": "49.0"
-		}
-	}
+	"default_locale":"en"
 }
